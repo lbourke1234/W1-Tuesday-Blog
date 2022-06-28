@@ -14,7 +14,7 @@ authorsRouter.get('/', basicAuthMiddleware, async (req, res, next) => {
     next(error)
   }
 })
-authorsRouter.get('/:id', async (req, res, next) => {
+authorsRouter.get('/:id', basicAuthMiddleware, async (req, res, next) => {
   try {
     const author = await AuthorsModel.findById(req.params.id)
     if (!author)
@@ -25,7 +25,7 @@ authorsRouter.get('/:id', async (req, res, next) => {
     next(error)
   }
 })
-authorsRouter.post('/', async (req, res, next) => {
+authorsRouter.post('/', basicAuthMiddleware, async (req, res, next) => {
   try {
     const newAuthor = new AuthorsModel(req.body)
     const { _id } = await newAuthor.save()
@@ -35,7 +35,7 @@ authorsRouter.post('/', async (req, res, next) => {
     next(error)
   }
 })
-authorsRouter.put('/:id', async (req, res, next) => {
+authorsRouter.put('/:id', basicAuthMiddleware, async (req, res, next) => {
   try {
     const updatedAuthor = await AuthorsModel.findByIdAndUpdate(req.params.id, req.body, {
       validation: true,
@@ -49,7 +49,7 @@ authorsRouter.put('/:id', async (req, res, next) => {
     next(error)
   }
 })
-authorsRouter.delete('/:id', async (req, res, next) => {
+authorsRouter.delete('/:id', basicAuthMiddleware, async (req, res, next) => {
   try {
     const deletedAuthor = await AuthorsModel.findByIdAndDelete(req.params.id)
     if (!deletedAuthor)
@@ -60,7 +60,5 @@ authorsRouter.delete('/:id', async (req, res, next) => {
     next(error)
   }
 })
-
-// authorsRouter.get('/stories')
 
 export default authorsRouter

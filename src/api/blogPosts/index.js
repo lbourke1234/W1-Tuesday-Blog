@@ -212,5 +212,14 @@ blogPostsRouter.get('/:blogId/likes/total', async (req, res, next) => {
     next(error)
   }
 })
+blogPostsRouter.get('/me/stories', basicAuthMiddleware, async (req, res, next) => {
+  try {
+    const blogs = await BlogPostsModel.find({ authors: req.author._id })
+    console.log(blogs)
+  } catch (error) {
+    console.log(error)
+    next(error)
+  }
+})
 
 export default blogPostsRouter

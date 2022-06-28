@@ -10,7 +10,15 @@ export const badRequestHandler = (err, req, res, next) => {
 
 export const unauthorizedHandler = (err, req, res, next) => {
   if (err.status === 401) {
-    res.status(404).send({ message: err.message })
+    res.status(401).send({ message: err.message })
+  } else {
+    next(err)
+  }
+}
+
+export const adminHandler = (err, req, res, next) => {
+  if (err.status === 403) {
+    res.status(403).send({ message: err.message })
   } else {
     next(err)
   }
