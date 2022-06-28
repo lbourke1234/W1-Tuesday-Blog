@@ -10,6 +10,7 @@ authorsRouter.get('/', basicAuthMiddleware, async (req, res, next) => {
     const authors = await AuthorsModel.find()
     res.send(authors)
   } catch (error) {
+    console.log(error)
     next(error)
   }
 })
@@ -20,6 +21,7 @@ authorsRouter.get('/:id', async (req, res, next) => {
       return next(createError(404, `Author with id ${req.params.id} not found!`))
     res.send(author)
   } catch (error) {
+    console.log(error)
     next(error)
   }
 })
@@ -29,6 +31,7 @@ authorsRouter.post('/', async (req, res, next) => {
     const { _id } = await newAuthor.save()
     res.status(201).send(_id)
   } catch (error) {
+    console.log(error)
     next(error)
   }
 })
@@ -42,6 +45,7 @@ authorsRouter.put('/:id', async (req, res, next) => {
       return createError(404, `Author with id ${req.params.id} not found!`)
     res.send(updatedAuthor)
   } catch (error) {
+    console.log(error)
     next(error)
   }
 })
@@ -52,8 +56,11 @@ authorsRouter.delete('/:id', async (req, res, next) => {
       return createError(404, `Author with id ${req.params.id} not found!`)
     res.send()
   } catch (error) {
+    console.log(error)
     next(error)
   }
 })
+
+// authorsRouter.get('/stories')
 
 export default authorsRouter

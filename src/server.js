@@ -4,7 +4,8 @@ import cors from 'cors'
 import {
   notFoundHandler,
   genericHandler,
-  badRequestHandler
+  badRequestHandler,
+  unauthorizedHandler
 } from './errorHandlers.js'
 import blogPostsRouter from './api/blogPosts/index.js'
 import authorsRouter from './api/authors/index.js'
@@ -20,6 +21,7 @@ server.use('/blogPosts', blogPostsRouter)
 server.use('/authors', authorsRouter)
 
 server.use(badRequestHandler)
+server.use(unauthorizedHandler)
 server.use(notFoundHandler)
 server.use(genericHandler)
 
